@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Leitura - Registre suas leituras</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <i class="fas fa-book-open"></i>
+                <h1>Ficha de Leitura</h1>
+            </div>
+            <p>Registre suas leituras e acompanhe sua jornada literária</p>
+            <button id="showSavedBooksBtn" class="btn btn-secondary show-saved-btn">
+                <i class="fas fa-bookmark"></i>
+                Ver Fichas Salvas
+            </button>
+        </header>
+
+        <div class="main-content">
+            <!-- Formulário -->
+            <div class="form-section">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-edit"></i>
+                        <h2>Preencher Ficha</h2>
+                    </div>
+                    <div class="card-content">
+                        <form id="bookForm">
+                            <!-- Informações básicas -->
+                            <div class="form-group">
+                                <label for="title">Título</label>
+                                <input type="text" id="title" placeholder="Digite o título do livro">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="author">Autor</label>
+                                <input type="text" id="author" placeholder="Digite o nome do autor">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="startDate">Data de Início</label>
+                                    <input type="date" id="startDate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="endDate">Data de Término</label>
+                                    <input type="date" id="endDate">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Avaliação Geral</label>
+                                <div class="star-rating" id="starRating">
+                                    <i class="fas fa-star" data-rating="1"></i>
+                                    <i class="fas fa-star" data-rating="2"></i>
+                                    <i class="fas fa-star" data-rating="3"></i>
+                                    <i class="fas fa-star" data-rating="4"></i>
+                                    <i class="fas fa-star" data-rating="5"></i>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="pages">Nº de Páginas</label>
+                                    <input type="number" id="pages" placeholder="000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="genre">Gênero</label>
+                                    <input type="text" id="genre" placeholder="Romance, Ficção...">
+                                </div>
+                                <div class="form-group">
+                                    <label for="publisher">Editora</label>
+                                    <input type="text" id="publisher" placeholder="Nome da editora">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tipo de Livro</label>
+                                <div class="book-type-grid">
+                                    <label class="book-type-option">
+                                        <input type="radio" name="bookType" value="fisico" checked>
+                                        <div class="book-type-card">
+                                            <i class="fas fa-book"></i>
+                                            <span>Físico</span>
+                                        </div>
+                                    </label>
+                                    <label class="book-type-option">
+                                        <input type="radio" name="bookType" value="ebook">
+                                        <div class="book-type-card">
+                                            <i class="fas fa-tablet-alt"></i>
+                                            <span>E-book</span>
+                                        </div>
+                                    </label>
+                                    <label class="book-type-option">
+                                        <input type="radio" name="bookType" value="audiobook">
+                                        <div class="book-type-card">
+                                            <i class="fas fa-headphones"></i>
+                                            <span>Audiobook</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="coverImage">Capa do Livro</label>
+                                <input type="file" id="coverImage" accept="image/*">
+                            </div>
+
+                            <!-- Avaliações Detalhadas -->
+                            <div class="form-group">
+                                <label>Avaliações Detalhadas (1-10)</label>
+                                <div class="detailed-ratings">
+                                    <div class="rating-item">
+                                        <label>Qualidade da Escrita:</label>
+                                        <input type="range" id="writingQuality" min="1" max="10" value="5">
+                                        <span class="rating-value">5</span>
+                                    </div>
+                                    <div class="rating-item">
+                                        <label>Desenvolvimento do Enredo:</label>
+                                        <input type="range" id="plotDevelopment" min="1" max="10" value="5">
+                                        <span class="rating-value">5</span>
+                                    </div>
+                                    <div class="rating-item">
+                                        <label>Personagens:</label>
+                                        <input type="range" id="charactersRating" min="1" max="10" value="5">
+                                        <span class="rating-value">5</span>
+                                    </div>
+                                    <div class="rating-item">
+                                        <label>Facilidade de Leitura:</label>
+                                        <input type="range" id="easeOfReading" min="1" max="10" value="5">
+                                        <span class="rating-value">5</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Recomendação -->
+                            <div class="form-group">
+                                <label>Recomendaria este livro?</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="recommend" value="yes">
+                                        <span class="radio-custom"></span>
+                                        Sim
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="recommend" value="no">
+                                        <span class="radio-custom"></span>
+                                        Não
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Sentimentos sobre o livro -->
+                            <div class="form-group">
+                                <label>Meus sentimentos sobre este livro:</label>
+                                <div class="feelings-grid">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="Melhor livro que já li">
+                                        <span class="checkbox-custom"></span>
+                                        Melhor livro que já li
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="Não gostei nada">
+                                        <span class="checkbox-custom"></span>
+                                        Não gostei nada
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="Já li melhores">
+                                        <span class="checkbox-custom"></span>
+                                        Já li melhores
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="Me fez chorar">
+                                        <span class="checkbox-custom"></span>
+                                        Me fez chorar
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="Leitura obrigatória">
+                                        <span class="checkbox-custom"></span>
+                                        Leitura obrigatória
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" value="Não consegui terminar">
+                                        <span class="checkbox-custom"></span>
+                                        Não consegui terminar
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="characters">Personagens</label>
+                                <textarea id="characters" rows="3" placeholder="Descreva os principais personagens..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="quotes">Frases Marcantes</label>
+                                <textarea id="quotes" rows="4" placeholder="Anote suas frases favoritas do livro..."></textarea>
+                            </div>
+
+                            <div class="button-group">
+                                <button type="button" id="saveBtn" class="btn btn-primary">
+                                    <i class="fas fa-save"></i>
+                                    Salvar Ficha
+                                </button>
+                                <button type="button" id="downloadBtn" class="btn btn-secondary">
+                                    <i class="fas fa-download"></i>
+                                    Download PDF
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Preview da Ficha</h2>
+                    </div>
+                    <div class="card-content">
+                        <div id="fichaPreview" class="ficha-preview">
+                            <!-- Conteúdo do preview será gerado pelo JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Painel Lateral de Fichas Salvas -->
+    <div id="savedBooksPanel" class="saved-books-panel">
+        <div class="panel-header">
+            <h3><i class="fas fa-bookmark"></i> Fichas Salvas</h3>
+            <button id="closePanelBtn" class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="panel-content" id="savedBooksList">
+            <!-- Lista de livros salvos será inserida aqui -->
+        </div>
+    </div>
+
+    <!-- Modal para renomear ficha -->
+    <div id="renameModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Renomear Ficha</h3>
+                <button class="close-btn" onclick="closeRenameModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label for="newBookName">Novo nome:</label>
+                <input type="text" id="newBookName" placeholder="Digite o novo nome">
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeRenameModal()">Cancelar</button>
+                <button class="btn btn-primary" onclick="confirmRename()">Salvar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
