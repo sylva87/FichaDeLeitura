@@ -27,9 +27,82 @@ class BookReaderApp {
 
   init() {
     this.setupEventListeners()
+    this.initializeStarRatings()
     this.loadSavedData()
     this.updatePreview()
     this.loadSavedBooks()
+  }
+
+  initializeStarRatings() {
+    // Inicializar avaliações detalhadas (10 estrelas)
+    const detailedRatings = ["writingQuality", "plotDevelopment", "charactersRating", "easeOfReading"]
+
+    detailedRatings.forEach((ratingId) => {
+      const container = document.getElementById(ratingId)
+      container.innerHTML = ""
+
+      for (let i = 1; i <= 10; i++) {
+        const star = document.createElement("div")
+        star.className = "star"
+        star.dataset.star = i
+
+        star.innerHTML = `
+          <i class="fas fa-star star-bg"></i>
+          <i class="fas fa-star star-fill"></i>
+          <div class="star-half-left" data-value="${i - 0.5}"></div>
+          <div class="star-half-right" data-value="${i}"></div>
+        `
+
+        container.appendChild(star)
+      }
+
+      this.setupDetailedStarRating(ratingId)
+    })
+  }
+
+  setupDetailedStarRating(ratingId) {
+    const container = document.getElementById(ratingId)
+    const valueSpan = container.parentElement.querySelector(".rating-value")
+
+    container.addEventListener("click", (e) => {
+      const target = e.target
+      if (target.classList.contains("star-half-left") || target.classList.contains("star-half-right")) {
+        const value = Number.parseFloat(target.dataset.value)
+        this.bookData[ratingId] = value
+        valueSpan.textContent = value.toFixed(1)
+        this.updateDetailedStarDisplay(container, value)
+        this.updatePreview()
+      }
+    })
+
+    container.addEventListener("mouseover", (e) => {
+      const target = e.target
+      if (target.classList.contains("star-half-left") || target.classList.contains("star-half-right")) {
+        const value = Number.parseFloat(target.dataset.value)
+        this.updateDetailedStarDisplay(container, value)
+      }
+    })
+
+    container.addEventListener("mouseleave", () => {
+      this.updateDetailedStarDisplay(container, this.bookData[ratingId])
+    })
+  }
+
+  updateDetailedStarDisplay(container, rating) {
+    const stars = container.querySelectorAll(".star")
+
+    stars.forEach((star, index) => {
+      const starNumber = index + 1
+      const fillElement = star.querySelector(".star-fill")
+
+      if (rating >= starNumber) {
+        fillElement.style.width = "100%"
+      } else if (rating >= starNumber - 0.5) {
+        fillElement.style.width = "50%"
+      } else {
+        fillElement.style.width = "0%"
+      }
+    })
   }
 
   setupEventListeners() {
@@ -96,50 +169,19 @@ class BookReaderApp {
     })
 
     // Checkboxes para sentimentos
-    document
-      .querySelectorAll('.feelings-grid input[type="checkbox"]')
-      .forEach((checkbox) => {
-        checkbox.addEventListener("change", (e) => {
-          if (e.target.checked) {
-            this.bookData.feelings.push(e.target.value)
-          } else {
-            this.bookData.feelings = this.bookData.feelings.filter((feeling) => feeling !== e.target.value)
-          }
-          this.updatePreview()
-        })
-      })
-
-    // Sliders para avaliações detalhadas
-    ;["writingQuality", "plotDevelopment", "charactersRating", "easeOfReading"].forEach((rating) => {
-      const slider = document.getElementById(rating)
-      const valueSpan = slider.nextElementSibling
-
-      slider.addEventListener("input", (e) => {
-        const value = e.target.value
-        this.bookData[rating] = Number.parseInt(value)
-        valueSpan.textContent = value
+    document.querySelectorAll('.feelings-grid input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.addEventListener("change", (e) => {
+        if (e.target.checked) {
+          this.bookData.feelings.push(e.target.value)
+        } else {
+          this.bookData.feelings = this.bookData.feelings.filter((feeling) => feeling !== e.target.value)
+        }
         this.updatePreview()
       })
     })
 
-    // Star rating
-    document.querySelectorAll("#starRating i").forEach((star) => {
-      star.addEventListener("click", (e) => {
-        const rating = Number.parseInt(e.target.dataset.rating)
-        this.bookData.rating = rating
-        this.updateStarRating()
-        this.updatePreview()
-      })
-
-      star.addEventListener("mouseenter", (e) => {
-        const rating = Number.parseInt(e.target.dataset.rating)
-        this.highlightStars(rating)
-      })
-    })
-
-    document.getElementById("starRating").addEventListener("mouseleave", () => {
-      this.updateStarRating()
-    })
+    // Star rating principal com meias estrelas
+    this.setupMainStarRating()
 
     // Upload de imagem
     document.getElementById("coverImage").addEventListener("change", (e) => {
@@ -172,25 +214,56 @@ class BookReaderApp {
       this.closeSavedBooksPanel()
     })
 
-    // Overlay - CORRIGIDO
+    // Overlay
     document.getElementById("overlay").addEventListener("click", () => {
       this.closeSavedBooksPanel()
       closeRenameModal()
     })
   }
 
-  highlightStars(rating) {
-    document.querySelectorAll("#starRating i").forEach((star, index) => {
-      if (index < rating) {
-        star.classList.add("active")
-      } else {
-        star.classList.remove("active")
+  setupMainStarRating() {
+    const starRating = document.getElementById("starRating")
+    const ratingDisplay = starRating.parentElement.querySelector(".rating-display")
+
+    starRating.addEventListener("click", (e) => {
+      const target = e.target
+      if (target.classList.contains("star-half-left") || target.classList.contains("star-half-right")) {
+        const value = Number.parseFloat(target.dataset.value)
+        this.bookData.rating = value
+        ratingDisplay.textContent = value.toFixed(1)
+        this.updateMainStarDisplay(value)
+        this.updatePreview()
       }
+    })
+
+    starRating.addEventListener("mouseover", (e) => {
+      const target = e.target
+      if (target.classList.contains("star-half-left") || target.classList.contains("star-half-right")) {
+        const value = Number.parseFloat(target.dataset.value)
+        this.updateMainStarDisplay(value)
+      }
+    })
+
+    starRating.addEventListener("mouseleave", () => {
+      this.updateMainStarDisplay(this.bookData.rating)
     })
   }
 
-  updateStarRating() {
-    this.highlightStars(this.bookData.rating)
+  updateMainStarDisplay(rating) {
+    const stars = document.querySelectorAll("#starRating .star")
+
+    stars.forEach((star, index) => {
+      const starNumber = index + 1
+      const fillElement = star.querySelector(".star-fill")
+
+      if (rating >= starNumber) {
+        fillElement.style.width = "100%"
+      } else if (rating >= starNumber - 0.5) {
+        fillElement.style.width = "50%"
+      } else {
+        fillElement.style.width = "0%"
+      }
+    })
   }
 
   updatePreview() {
@@ -223,9 +296,7 @@ class BookReaderApp {
 
                     <!-- Avaliação por estrelas -->
                     <div class="pdf-rating">
-                        ${[1, 2, 3, 4, 5]
-                          .map((i) => `<span class="pdf-star ${i <= this.bookData.rating ? "active" : ""}">★</span>`)
-                          .join("")}
+                        ${this.generatePdfStars(this.bookData.rating, 5)}
                     </div>
 
                     <!-- Tipos de livro -->
@@ -289,45 +360,25 @@ class BookReaderApp {
                         <div class="pdf-rating-row">
                             <span class="pdf-rating-label">Escrita:</span>
                             <div class="pdf-rating-dots">
-                                ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                                  .map(
-                                    (i) =>
-                                      `<div class="pdf-rating-dot ${i <= this.bookData.writingQuality ? "active" : ""}"></div>`,
-                                  )
-                                  .join("")}
+                                ${this.generatePdfDots(this.bookData.writingQuality, 10)}
                             </div>
                         </div>
                         <div class="pdf-rating-row">
                             <span class="pdf-rating-label">Enredo:</span>
                             <div class="pdf-rating-dots">
-                                ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                                  .map(
-                                    (i) =>
-                                      `<div class="pdf-rating-dot ${i <= this.bookData.plotDevelopment ? "active" : ""}"></div>`,
-                                  )
-                                  .join("")}
+                                ${this.generatePdfDots(this.bookData.plotDevelopment, 10)}
                             </div>
                         </div>
                         <div class="pdf-rating-row">
                             <span class="pdf-rating-label">Personagens:</span>
                             <div class="pdf-rating-dots">
-                                ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                                  .map(
-                                    (i) =>
-                                      `<div class="pdf-rating-dot ${i <= this.bookData.charactersRating ? "active" : ""}"></div>`,
-                                  )
-                                  .join("")}
+                                ${this.generatePdfDots(this.bookData.charactersRating, 10)}
                             </div>
                         </div>
                         <div class="pdf-rating-row">
                             <span class="pdf-rating-label">Leitura:</span>
                             <div class="pdf-rating-dots">
-                                ${[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                                  .map(
-                                    (i) =>
-                                      `<div class="pdf-rating-dot ${i <= this.bookData.easeOfReading ? "active" : ""}"></div>`,
-                                  )
-                                  .join("")}
+                                ${this.generatePdfDots(this.bookData.easeOfReading, 10)}
                             </div>
                         </div>
                     </div>
@@ -371,6 +422,34 @@ class BookReaderApp {
             <!-- Footer -->
             <div class="pdf-footer">Design: @sylva.jpp</div>
         `
+  }
+
+  generatePdfStars(rating, maxStars) {
+    let starsHtml = ""
+    for (let i = 1; i <= maxStars; i++) {
+      let starClass = ""
+      if (rating >= i) {
+        starClass = "active"
+      } else if (rating >= i - 0.5) {
+        starClass = "half"
+      }
+      starsHtml += `<span class="pdf-star ${starClass}">★</span>`
+    }
+    return starsHtml
+  }
+
+  generatePdfDots(rating, maxDots) {
+    let dotsHtml = ""
+    for (let i = 1; i <= maxDots; i++) {
+      let dotClass = ""
+      if (rating >= i) {
+        dotClass = "active"
+      } else if (rating >= i - 0.5) {
+        dotClass = "half"
+      }
+      dotsHtml += `<div class="pdf-rating-dot ${dotClass}"></div>`
+    }
+    return dotsHtml
   }
 
   getFeelingsList() {
@@ -554,22 +633,24 @@ class BookReaderApp {
     }
 
     // Sentimentos
-    document
-      .querySelectorAll('.feelings-grid input[type="checkbox"]')
-      .forEach((checkbox) => {
-        checkbox.checked = this.bookData.feelings.includes(checkbox.value)
-      })
-
-    // Sliders
-    ;["writingQuality", "plotDevelopment", "charactersRating", "easeOfReading"].forEach((rating) => {
-      const slider = document.getElementById(rating)
-      const valueSpan = slider.nextElementSibling
-      const value = this.bookData[rating] || 5
-      slider.value = value
-      valueSpan.textContent = value
+    document.querySelectorAll('.feelings-grid input[type="checkbox"]').forEach((checkbox) => {
+      checkbox.checked = this.bookData.feelings.includes(checkbox.value)
     })
 
-    this.updateStarRating()
+    // Atualizar displays das avaliações
+    const ratingDisplay = document.querySelector("#starRating").parentElement.querySelector(".rating-display")
+    ratingDisplay.textContent = this.bookData.rating.toFixed(1)
+    this.updateMainStarDisplay(this.bookData.rating)
+
+    // Avaliações detalhadas
+    const detailedRatings = ["writingQuality", "plotDevelopment", "charactersRating", "easeOfReading"]
+    detailedRatings.forEach((ratingId) => {
+      const container = document.getElementById(ratingId)
+      const valueSpan = container.parentElement.querySelector(".rating-value")
+      const value = this.bookData[ratingId] || 5
+      valueSpan.textContent = value.toFixed(1)
+      this.updateDetailedStarDisplay(container, value)
+    })
   }
 
   showNotification(message, type = "success") {
@@ -617,7 +698,7 @@ class BookReaderApp {
       element.style.width = "210mm"
       element.style.height = "297mm"
 
-      const html2canvas = window.html2canvas // Declare the variable here
+      const html2canvas = window.html2canvas
       const canvas = await html2canvas(element, {
         scale: 2,
         useCORS: true,
