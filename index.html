@@ -12,12 +12,12 @@
         <!-- Header -->
         <header class="header">
             <div class="header-content">
-                <i class="fas fa-book-open"></i>
+                <i class="fas fa-book-open" aria-hidden="true"></i>
                 <h1>Ficha de Leitura</h1>
             </div>
             <p>Registre suas leituras e acompanhe sua jornada literária</p>
-            <button id="showSavedBooksBtn" class="btn btn-secondary show-saved-btn">
-                <i class="fas fa-bookmark"></i>
+            <button id="showSavedBooksBtn" class="btn btn-secondary show-saved-btn" type="button">
+                <i class="fas fa-bookmark" aria-hidden="true"></i>
                 Ver Fichas Salvas
             </button>
         </header>
@@ -27,7 +27,7 @@
             <div class="form-section">
                 <div class="card">
                     <div class="card-header">
-                        <i class="fas fa-edit"></i>
+                        <i class="fas fa-edit" aria-hidden="true"></i>
                         <h2>Preencher Ficha</h2>
                     </div>
                     <div class="card-content">
@@ -35,149 +35,149 @@
                             <!-- Informações básicas -->
                             <div class="form-group">
                                 <label for="title">Título</label>
-                                <input type="text" id="title" placeholder="Digite o título do livro">
+                                <input type="text" id="title" name="title" placeholder="Digite o título do livro">
                             </div>
 
                             <div class="form-group">
                                 <label for="author">Autor</label>
-                                <input type="text" id="author" placeholder="Digite o nome do autor">
+                                <input type="text" id="author" name="author" placeholder="Digite o nome do autor">
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="startDate">Data de Início</label>
-                                    <input type="date" id="startDate">
+                                    <input type="date" id="startDate" name="startDate">
                                 </div>
                                 <div class="form-group">
                                     <label for="endDate">Data de Término</label>
-                                    <input type="date" id="endDate">
+                                    <input type="date" id="endDate" name="endDate">
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Avaliação Geral</label>
                                 <div class="star-rating-container">
-                                    <div class="star-rating" id="starRating" data-rating="0">
+                                    <div class="star-rating" id="starRating" data-rating="0" role="radiogroup" aria-label="Avaliação geral do livro">
                                         <div class="star" data-star="1">
-                                            <i class="fas fa-star star-bg"></i>
-                                            <i class="fas fa-star star-fill"></i>
-                                            <div class="star-half-left" data-value="0.5"></div>
-                                            <div class="star-half-right" data-value="1"></div>
+                                            <i class="fas fa-star star-bg" aria-hidden="true"></i>
+                                            <i class="fas fa-star star-fill" aria-hidden="true"></i>
+                                            <button type="button" class="star-half-left" data-value="0.5" aria-label="0.5 estrelas"></button>
+                                            <button type="button" class="star-half-right" data-value="1" aria-label="1 estrela"></button>
                                         </div>
                                         <div class="star" data-star="2">
-                                            <i class="fas fa-star star-bg"></i>
-                                            <i class="fas fa-star star-fill"></i>
-                                            <div class="star-half-left" data-value="1.5"></div>
-                                            <div class="star-half-right" data-value="2"></div>
+                                            <i class="fas fa-star star-bg" aria-hidden="true"></i>
+                                            <i class="fas fa-star star-fill" aria-hidden="true"></i>
+                                            <button type="button" class="star-half-left" data-value="1.5" aria-label="1.5 estrelas"></button>
+                                            <button type="button" class="star-half-right" data-value="2" aria-label="2 estrelas"></button>
                                         </div>
                                         <div class="star" data-star="3">
-                                            <i class="fas fa-star star-bg"></i>
-                                            <i class="fas fa-star star-fill"></i>
-                                            <div class="star-half-left" data-value="2.5"></div>
-                                            <div class="star-half-right" data-value="3"></div>
+                                            <i class="fas fa-star star-bg" aria-hidden="true"></i>
+                                            <i class="fas fa-star star-fill" aria-hidden="true"></i>
+                                            <button type="button" class="star-half-left" data-value="2.5" aria-label="2.5 estrelas"></button>
+                                            <button type="button" class="star-half-right" data-value="3" aria-label="3 estrelas"></button>
                                         </div>
                                         <div class="star" data-star="4">
-                                            <i class="fas fa-star star-bg"></i>
-                                            <i class="fas fa-star star-fill"></i>
-                                            <div class="star-half-left" data-value="3.5"></div>
-                                            <div class="star-half-right" data-value="4"></div>
+                                            <i class="fas fa-star star-bg" aria-hidden="true"></i>
+                                            <i class="fas fa-star star-fill" aria-hidden="true"></i>
+                                            <button type="button" class="star-half-left" data-value="3.5" aria-label="3.5 estrelas"></button>
+                                            <button type="button" class="star-half-right" data-value="4" aria-label="4 estrelas"></button>
                                         </div>
                                         <div class="star" data-star="5">
-                                            <i class="fas fa-star star-bg"></i>
-                                            <i class="fas fa-star star-fill"></i>
-                                            <div class="star-half-left" data-value="4.5"></div>
-                                            <div class="star-half-right" data-value="5"></div>
+                                            <i class="fas fa-star star-bg" aria-hidden="true"></i>
+                                            <i class="fas fa-star star-fill" aria-hidden="true"></i>
+                                            <button type="button" class="star-half-left" data-value="4.5" aria-label="4.5 estrelas"></button>
+                                            <button type="button" class="star-half-right" data-value="5" aria-label="5 estrelas"></button>
                                         </div>
                                     </div>
-                                    <span class="rating-display">0.0</span>
+                                    <span class="rating-display" aria-live="polite">0.0</span>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="pages">Nº de Páginas</label>
-                                    <input type="number" id="pages" placeholder="000">
+                                    <input type="number" id="pages" name="pages" placeholder="000" min="1">
                                 </div>
                                 <div class="form-group">
                                     <label for="genre">Gênero</label>
-                                    <input type="text" id="genre" placeholder="Romance, Ficção...">
+                                    <input type="text" id="genre" name="genre" placeholder="Romance, Ficção...">
                                 </div>
                                 <div class="form-group">
                                     <label for="publisher">Editora</label>
-                                    <input type="text" id="publisher" placeholder="Nome da editora">
+                                    <input type="text" id="publisher" name="publisher" placeholder="Nome da editora">
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Tipo de Livro</label>
+                            <fieldset class="form-group">
+                                <legend>Tipo de Livro</legend>
                                 <div class="book-type-grid">
                                     <label class="book-type-option">
                                         <input type="radio" name="bookType" value="fisico" checked>
                                         <div class="book-type-card">
-                                            <i class="fas fa-book"></i>
+                                            <i class="fas fa-book" aria-hidden="true"></i>
                                             <span>Físico</span>
                                         </div>
                                     </label>
                                     <label class="book-type-option">
                                         <input type="radio" name="bookType" value="ebook">
                                         <div class="book-type-card">
-                                            <i class="fas fa-tablet-alt"></i>
+                                            <i class="fas fa-tablet-alt" aria-hidden="true"></i>
                                             <span>E-book</span>
                                         </div>
                                     </label>
                                     <label class="book-type-option">
                                         <input type="radio" name="bookType" value="audiobook">
                                         <div class="book-type-card">
-                                            <i class="fas fa-headphones"></i>
+                                            <i class="fas fa-headphones" aria-hidden="true"></i>
                                             <span>Audiobook</span>
                                         </div>
                                     </label>
                                 </div>
-                            </div>
+                            </fieldset>
 
                             <div class="form-group">
                                 <label for="coverImage">Capa do Livro</label>
-                                <input type="file" id="coverImage" accept="image/*">
+                                <input type="file" id="coverImage" name="coverImage" accept="image/*">
                             </div>
 
                             <!-- Avaliações Detalhadas com meias estrelas -->
-                            <div class="form-group">
-                                <label>Avaliações Detalhadas (1-10)</label>
+                            <fieldset class="form-group">
+                                <legend>Avaliações Detalhadas (1-10)</legend>
                                 <div class="detailed-ratings">
                                     <div class="rating-item">
                                         <label>Qualidade da Escrita:</label>
-                                        <div class="detailed-star-rating" id="writingQuality" data-rating="5">
+                                        <div class="detailed-star-rating" id="writingQuality" data-rating="5" role="radiogroup" aria-label="Qualidade da escrita">
                                             <!-- 10 estrelas serão geradas pelo JavaScript -->
                                         </div>
-                                        <span class="rating-value">5.0</span>
+                                        <span class="rating-value" aria-live="polite">5.0</span>
                                     </div>
                                     <div class="rating-item">
                                         <label>Desenvolvimento do Enredo:</label>
-                                        <div class="detailed-star-rating" id="plotDevelopment" data-rating="5">
+                                        <div class="detailed-star-rating" id="plotDevelopment" data-rating="5" role="radiogroup" aria-label="Desenvolvimento do enredo">
                                             <!-- 10 estrelas serão geradas pelo JavaScript -->
                                         </div>
-                                        <span class="rating-value">5.0</span>
+                                        <span class="rating-value" aria-live="polite">5.0</span>
                                     </div>
                                     <div class="rating-item">
                                         <label>Personagens:</label>
-                                        <div class="detailed-star-rating" id="charactersRating" data-rating="5">
+                                        <div class="detailed-star-rating" id="charactersRating" data-rating="5" role="radiogroup" aria-label="Avaliação dos personagens">
                                             <!-- 10 estrelas serão geradas pelo JavaScript -->
                                         </div>
-                                        <span class="rating-value">5.0</span>
+                                        <span class="rating-value" aria-live="polite">5.0</span>
                                     </div>
                                     <div class="rating-item">
                                         <label>Facilidade de Leitura:</label>
-                                        <div class="detailed-star-rating" id="easeOfReading" data-rating="5">
+                                        <div class="detailed-star-rating" id="easeOfReading" data-rating="5" role="radiogroup" aria-label="Facilidade de leitura">
                                             <!-- 10 estrelas serão geradas pelo JavaScript -->
                                         </div>
-                                        <span class="rating-value">5.0</span>
+                                        <span class="rating-value" aria-live="polite">5.0</span>
                                     </div>
                                 </div>
-                            </div>
+                            </fieldset>
 
                             <!-- Recomendação -->
-                            <div class="form-group">
-                                <label>Recomendaria este livro?</label>
+                            <fieldset class="form-group">
+                                <legend>Recomendaria este livro?</legend>
                                 <div class="radio-group">
                                     <label class="radio-label">
                                         <input type="radio" name="recommend" value="yes">
@@ -190,62 +190,62 @@
                                         Não
                                     </label>
                                 </div>
-                            </div>
+                            </fieldset>
 
                             <!-- Sentimentos sobre o livro -->
-                            <div class="form-group">
-                                <label>Meus sentimentos sobre este livro:</label>
+                            <fieldset class="form-group">
+                                <legend>Meus sentimentos sobre este livro:</legend>
                                 <div class="feelings-grid">
                                     <label class="checkbox-label">
-                                        <input type="checkbox" value="Melhor livro que já li">
+                                        <input type="checkbox" name="feelings" value="Melhor livro que já li">
                                         <span class="checkbox-custom"></span>
                                         Melhor livro que já li
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" value="Não gostei nada">
+                                        <input type="checkbox" name="feelings" value="Não gostei nada">
                                         <span class="checkbox-custom"></span>
                                         Não gostei nada
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" value="Já li melhores">
+                                        <input type="checkbox" name="feelings" value="Já li melhores">
                                         <span class="checkbox-custom"></span>
                                         Já li melhores
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" value="Me fez chorar">
+                                        <input type="checkbox" name="feelings" value="Me fez chorar">
                                         <span class="checkbox-custom"></span>
                                         Me fez chorar
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" value="Leitura obrigatória">
+                                        <input type="checkbox" name="feelings" value="Leitura obrigatória">
                                         <span class="checkbox-custom"></span>
                                         Leitura obrigatória
                                     </label>
                                     <label class="checkbox-label">
-                                        <input type="checkbox" value="Não consegui terminar">
+                                        <input type="checkbox" name="feelings" value="Não consegui terminar">
                                         <span class="checkbox-custom"></span>
                                         Não consegui terminar
                                     </label>
                                 </div>
-                            </div>
+                            </fieldset>
 
                             <div class="form-group">
                                 <label for="characters">Personagens</label>
-                                <textarea id="characters" rows="3" placeholder="Descreva os principais personagens..."></textarea>
+                                <textarea id="characters" name="characters" rows="3" placeholder="Descreva os principais personagens..."></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="quotes">Frases Marcantes</label>
-                                <textarea id="quotes" rows="4" placeholder="Anote suas frases favoritas do livro..."></textarea>
+                                <textarea id="quotes" name="quotes" rows="4" placeholder="Anote suas frases favoritas do livro..."></textarea>
                             </div>
 
                             <div class="button-group">
                                 <button type="button" id="saveBtn" class="btn btn-primary">
-                                    <i class="fas fa-save"></i>
+                                    <i class="fas fa-save" aria-hidden="true"></i>
                                     Salvar Ficha
                                 </button>
                                 <button type="button" id="downloadBtn" class="btn btn-secondary">
-                                    <i class="fas fa-download"></i>
+                                    <i class="fas fa-download" aria-hidden="true"></i>
                                     Download PDF
                                 </button>
                             </div>
@@ -271,34 +271,34 @@
     </div>
 
     <!-- Painel Lateral de Fichas Salvas -->
-    <div id="savedBooksPanel" class="saved-books-panel">
+    <aside id="savedBooksPanel" class="saved-books-panel">
         <div class="panel-header">
-            <h3><i class="fas fa-bookmark"></i> Fichas Salvas</h3>
-            <button id="closePanelBtn" class="close-btn">
-                <i class="fas fa-times"></i>
+            <h3><i class="fas fa-bookmark" aria-hidden="true"></i> Fichas Salvas</h3>
+            <button id="closePanelBtn" class="close-btn" type="button">
+                <i class="fas fa-times" aria-hidden="true"></i>
             </button>
         </div>
         <div class="panel-content" id="savedBooksList">
             <!-- Lista de livros salvos será inserida aqui -->
         </div>
-    </div>
+    </aside>
 
     <!-- Modal para renomear ficha -->
-    <div id="renameModal" class="modal">
+    <div id="renameModal" class="modal" role="dialog" aria-labelledby="renameModalTitle" aria-hidden="true">
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Renomear Ficha</h3>
-                <button class="close-btn" onclick="closeRenameModal()">
-                    <i class="fas fa-times"></i>
+                <h3 id="renameModalTitle">Renomear Ficha</h3>
+                <button class="close-btn" type="button" onclick="closeRenameModal()">
+                    <i class="fas fa-times" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="modal-body">
                 <label for="newBookName">Novo nome:</label>
-                <input type="text" id="newBookName" placeholder="Digite o novo nome">
+                <input type="text" id="newBookName" name="newBookName" placeholder="Digite o novo nome">
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeRenameModal()">Cancelar</button>
-                <button class="btn btn-primary" onclick="confirmRename()">Salvar</button>
+                <button class="btn btn-secondary" type="button" onclick="closeRenameModal()">Cancelar</button>
+                <button class="btn btn-primary" type="button" onclick="confirmRename()">Salvar</button>
             </div>
         </div>
     </div>
