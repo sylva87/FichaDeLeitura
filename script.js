@@ -47,11 +47,11 @@ class BookReaderApp {
         star.dataset.star = i
 
         star.innerHTML = `
-          <i class="fas fa-star star-bg"></i>
-          <i class="fas fa-star star-fill"></i>
-          <div class="star-half-left" data-value="${i - 0.5}"></div>
-          <div class="star-half-right" data-value="${i}"></div>
-        `
+        <i class="fas fa-star star-bg"></i>
+        <i class="fas fa-star star-fill"></i>
+        <button type="button" class="star-half-left" data-value="${i - 0.5}" aria-label="${i - 0.5} estrelas"></button>
+        <button type="button" class="star-half-right" data-value="${i}" aria-label="${i} estrelas"></button>
+      `
 
         container.appendChild(star)
       }
