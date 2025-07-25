@@ -197,6 +197,18 @@ textarea {
   height: 100%;
   cursor: pointer;
   z-index: 10;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+.star-half-left:focus,
+.star-half-right:focus {
+  outline: 2px solid #d97706;
+  outline-offset: 2px;
+  border-radius: 2px;
 }
 
 .star-half-left {
