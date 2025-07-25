@@ -150,25 +150,109 @@ textarea {
     min-height: 80px;
 }
 
-.star-rating {
+/* Sistema de Avaliação com Meias Estrelas */
+.star-rating-container {
     display: flex;
-    gap: 5px;
+    align-items: center;
+    gap: 10px;
     margin-top: 5px;
 }
 
-.star-rating i {
+.star-rating {
+    display: flex;
+    gap: 2px;
+    position: relative;
+}
+
+.star {
+    position: relative;
     font-size: 24px;
-    color: #d1d5db;
     cursor: pointer;
-    transition: color 0.2s;
+    width: 24px;
+    height: 24px;
 }
 
-.star-rating i.active {
-    color: #fbbf24;
+.star-bg {
+    color: #d1d5db;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
-.star-rating i:hover {
+.star-fill {
     color: #fbbf24;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    overflow: hidden;
+    transition: width 0.2s ease;
+}
+
+.star-half-left,
+.star-half-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.star-half-left {
+    left: 0;
+}
+
+.star-half-right {
+    right: 0;
+}
+
+.star:hover .star-fill {
+    color: #f59e0b;
+}
+
+.rating-display {
+    font-weight: bold;
+    color: #d97706;
+    font-size: 16px;
+    min-width: 30px;
+}
+
+/* Avaliações Detalhadas */
+.detailed-ratings {
+    space-y: 15px;
+}
+
+.rating-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.rating-item label {
+    min-width: 180px;
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.detailed-star-rating {
+    display: flex;
+    gap: 1px;
+    flex: 1;
+}
+
+.detailed-star-rating .star {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.rating-value {
+    min-width: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: #d97706;
 }
 
 /* Novos estilos para tipos de livro */
@@ -214,58 +298,6 @@ textarea {
 }
 
 .book-type-option input[type="radio"]:checked + .book-type-card i {
-    color: #d97706;
-}
-
-/* Avaliações detalhadas */
-.detailed-ratings {
-    space-y: 15px;
-}
-
-.rating-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.rating-item label {
-    min-width: 180px;
-    margin-bottom: 0;
-    font-size: 14px;
-}
-
-.rating-item input[type="range"] {
-    flex: 1;
-    height: 6px;
-    background: #e5e7eb;
-    border-radius: 3px;
-    outline: none;
-    -webkit-appearance: none;
-}
-
-.rating-item input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #d97706;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.rating-item input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: #d97706;
-    border-radius: 50%;
-    cursor: pointer;
-    border: none;
-}
-
-.rating-value {
-    min-width: 30px;
-    text-align: center;
-    font-weight: bold;
     color: #d97706;
 }
 
@@ -408,7 +440,7 @@ textarea {
     background: white;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
     transition: right 0.3s ease;
-    z-index: 2000; /* Aumentado para ficar acima do overlay */
+    z-index: 2000;
     overflow-y: auto;
 }
 
@@ -522,7 +554,7 @@ textarea {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 3000; /* Aumentado para ficar acima do painel */
+    z-index: 3000;
 }
 
 .modal.show {
@@ -593,7 +625,7 @@ textarea {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 1500; /* Menor que o painel e modal */
+    z-index: 1500;
 }
 
 .overlay.show {
@@ -821,9 +853,20 @@ textarea {
 .pdf-star {
     font-size: 16px;
     color: rgba(255, 255, 255, 0.5);
+    position: relative;
 }
 
 .pdf-star.active {
+    color: #ffd700;
+}
+
+.pdf-star.half::after {
+    content: '★';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
     color: #ffd700;
 }
 
@@ -864,6 +907,10 @@ textarea {
 
 .pdf-rating-dot.active {
     background: #5d4e37;
+}
+
+.pdf-rating-dot.half {
+    background: linear-gradient(90deg, #5d4e37 50%, rgba(255, 255, 255, 0.5) 50%);
 }
 
 /* Seção de pensamentos */
